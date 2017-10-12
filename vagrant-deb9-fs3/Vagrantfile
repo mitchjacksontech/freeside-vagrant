@@ -13,5 +13,5 @@ Vagrant.configure('2') do |config|
     config.vm.provision :init, type: "shell", path: "provision/initial.sh"
     config.vm.provision :fsprereqs, type: "shell", path: "provision/fs3-prereqs.sh"
     config.vm.provision :fssetup, type: "shell", path: "provision/fs3-setup.sh"
-
+    config.vm.provision :freeradius, type: "shell", path: "provision/freeradius.sh"
 end
