@@ -34,13 +34,6 @@ brew install cask/caskroom/virtualbox
 brew install cask/caskroom/vagrant
 ```
 
-
-## Clone the repository
-``` bash
-
-```
-
-
 ## Working with VMs using Vagrant
 Choose one of the folders to work in, such as vagrant-deb9-master.
 
@@ -149,9 +142,23 @@ export FS_INSTALL_DIR='/home/freeside'
 export FS_FREESIDE_DOMAIN='192.168.1.50'
 
 
-
 # First employee account credentials
 export FS_USERNAME='freeside'
 export FS_PASSWORD='freeside'
 
 ```
+
+
+## Default Networking for VMs
+Each VM is bridged to the host with a static IP.
+| VM                  | IP           |
+| ------------------- | ------------ |
+| vagrant-deb9-master | 192.138.1.55 |
+| vagrant-deb9-fs4    | 192.138.1.53 |
+| vagrant-deb9-fs3    | 192.138.1.54 |
+| vagrant-deb8-master | 192.138.1.51 |
+| vagrant-dev8-fs4    | 192.138.1.50 |
+| vagrant-deb8-fs3    | 192.138.1.52 |
+
+This can be changed by updating the IP address
+in the Vagrant file, and in provision/fsX-setup.sh
