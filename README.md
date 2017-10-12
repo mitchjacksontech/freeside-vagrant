@@ -151,6 +151,8 @@ export FS_PASSWORD='freeside'
 
 ## Default Networking for VMs
 Each VM is bridged to the host with a static IP.
+
+
 | VM                  | IP           |
 | ------------------- | ------------ |
 | vagrant-deb9-master | 192.138.1.55 |
@@ -159,6 +161,7 @@ Each VM is bridged to the host with a static IP.
 | vagrant-deb8-master | 192.138.1.51 |
 | vagrant-dev8-fs4    | 192.138.1.50 |
 | vagrant-deb8-fs3    | 192.138.1.52 |
+
 
 This can be changed by updating the IP address
 in the Vagrant file, and in provision/fsX-setup.sh
