@@ -30,8 +30,8 @@ sudo aptitude -y install vagrant
 
 ### Install Requirements on MacOS Host
 ``` bash
-brew install cask/caskroom/virtualbox
-brew install cask/caskroom/vagrant
+brew install caskroom/cask/virtualbox
+brew install caskroom/cask/vagrant
 ```
 
 ## Working with VMs using Vagrant
