@@ -12,6 +12,33 @@ consistent development and deployment environment among teams of
 developers.
 
 
+### Setting Expectations
+
+The provisioner shell scripts included with this project will not
+age well.  They included hard-coded paths that will change over time,
+and they have not been carefully written to provide great feedback
+to the console during provisioning.  You may choose to bypass automatic
+execution of these scripts with `vagrant up --no-provision`.  You can
+then execute the contents of these scripts yourself at the shell, line
+by line, watching for and correcting problems.  Contribution here are
+quite welcome.
+
+
+## Branches
+
+This project currently provides three branches to chose from:
+
+* master: Based on Virtualbox.
+* vmware-support: Based on VMWare
+* case-sensitive: Based on Virtualbox.  Freeside source tree, and the apache
+  web directory, are mounted to the host file system.  This allows you to use
+  your native IDE tools on the host machine to directly edit source files
+  contained within the VM.  This **sill not work** if your host file system is
+  case insensitive, as the software source tree contains filename collisions.
+  With a MacOS host, you may create a case-sensitive partition on an external
+  drive to use this helpful functionality.
+
+
 ## Requirements
 
 To use this kit, you must only have two tools installed.  Everything
@@ -30,18 +57,31 @@ sudo aptitude -y install vagrant
 
 ### Install Requirements on MacOS Host
 ``` bash
-brew install caskroom/cask/virtualbox
-brew install caskroom/cask/vagrant
+brew install cask/caskroom/virtualbox
+brew install cask/caskroom/vagrant
 ```
 
 ## Working with VMs using Vagrant
 Choose one of the folders to work in, such as vagrant-deb9-master.
+Before building a vm with `vagrant up`, it is important to install the
+vagrant-vbguest plugin with `vagrant plugin install vagrant-vbguest`.
+This plugin will ensure the kernel modules for virtualbox are loaded
+and up to date on the guest os.
+
+If you experience errors related to mounting shared folders when starting
+an instance, you forgot to load the plugin.
 
 
 ### Building and booting the instance
-Issue the command `vagrant up` to create an instance.  
+Issue these commands `vagrant up` to create an instance:
+
+``` bash
+vagrant plugin install vagrant-vbguest
+vagrant up
+```
+
 Vagrant will:
-* Download a linux system image.  In this case, **[debian/contrib-jessie64](https://app.vagrantup.com/debian/boxes/contrib-jessie64)**.
+* Download a linux system image.  In this case, **[debian/jessie64](https://app.vagrantup.com/debian/boxes/jessie64)**.
 * Boot a new VM based on that system image.
   * Allocated ram and cpu cores can be configured in Vagrantfile
   * VM will be configured with Bridged networking, and the static
@@ -55,6 +95,12 @@ Vagrant will:
   * **fs4-setup.sh**: Clones the freeside respository, selects the
     specified git branch, and performs necessary installation tasks
     to install the example.com sample data.
+
+
+### Problems with provisioner scripts
+You may choose to execute the commands in the provisioner scripts manually,
+one at a time, to locate and solve problems with provisioning.  These
+scripts are not going to age well, and are not being meticulously maintained.
 
 
 ### Accessing freeside on this instance
