@@ -20,7 +20,7 @@ export FS_INSTALL_DIR='/home/freeside'
 # Freside URL to be used in MakeFile FREESIDE_URL envvar
 # FREESIDE_URL initially contains http://localhost/freeside
 # This environment variable will replace the [localhost] only
-export FS_FREESIDE_DOMAIN='192.168.1.50'
+export FS_FREESIDE_DOMAIN='192.168.1.60'
 
 
 

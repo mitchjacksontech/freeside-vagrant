@@ -1,204 +1,164 @@
 #!/bin/bash
 
-# Install system prereqs for FREESIDE_4_BRANCH
+# Install system prereqs for freeside
 
 # Install prereqs
 aptitude -y install \
     apache2 \
+    git \
+    libapache-dbi-perl \
+    libapache-session-perl \
+    libapache2-authcookie-perl \
     libapache2-mod-perl2 \
-    postgresql \
-    libc6-dev
-
-
-# Install perl modules
-aptitude -y install \
-    libwww-perl \
-    liburi-perl \
-    libhtml-tagset-perl \
-    libhtml-parser-perl \
-    libdbi-perl \
-    libdbd-pg-perl \
-    libdate-manip-perl \
-    libdatetime-perl \
-    libfrontier-rpc-perl \
-    libgd-barcode-perl \
-    libipc-run-perl \
-    libipc-run3-perl \
-    libjson-perl \
-    libmailtools-perl \
-    libmime-tools-perl \
-    libnet-snmp-perl \
-    libsoap-lite-perl \
-    libtimedate-perl \
-    libxml-libxml-perl \
-    libxml-simple-perl \
-    libchart-perl \
-    libcache-cache-perl \
-    libdatetime-format-strptime-perl \
-    libdatetime-format-natural-perl \
-    libemail-sender-transport-smtp-tls-perl \
-    libexcel-writer-xlsx-perl \
-    libtest-pod-perl \
-    libtest-pod-coverage-perl \
-    libhtml-mason-perl \
-    liblocale-codes-perl \
-    liblog-dispatch-perl \
-    libnetaddr-ip-perl \
-    libnet-ping-perl \
-    libnet-ping-external-perl \
-    libnumber-format-perl \
-    libspreadsheet-writeexcel-perl \
-    libstring-approx-perl \
-    libtext-csv-xs-perl \
-    libterm-readkey-perl \
-    libtext-template-perl \
     libauthen-passphrase-perl \
+    libbusiness-creditcard-perl \
+    libbusiness-onlinepayment-perl \
     libbusiness-us-usps-webtools-perl \
+    libc6-dev \
+    libcache-cache-perl \
     libcam-pdf-perl \
+    libcgi-emulate-psgi-perl \
+    libcgi-psgi-perl \
+    libchart-perl \
     libcolor-scheme-perl \
-    libcrypt-passwdmd5-perl \
+    libconvert-color-perl \
+    libcpanel-json-xs-perl \
     libcrypt-openssl-rsa-perl \
+    libcrypt-passwdmd5-perl \
+    libcrypt-ssleay-perl \
+    libcrypt-ssleay-perl \
+    libcrypt-x509-perl \
+    libcss-squish-perl \
+    libdata-guid-perl \
+    libdata-ical-perl \
+    libdata-password-perl \
+    libdate-extract-perl \
+    libdate-manip-perl \
     libdate-simple-perl \
     libdatetime-format-ical-perl \
+    libdatetime-format-natural-perl \
+    libdatetime-format-strptime-perl \
+    libdatetime-perl \
     libdatetime-set-perl \
+    libdbd-pg-perl \
+    libdbi-perl \
     libdbix-dbschema-perl \
+    libdbix-searchbuilder-perl \
+    libdbix-searchbuilder-perl \
+    libemail-address-list-perl \
+    libemail-address-list-perl \
+    libemail-address-perl \
+    libemail-sender-perl \
+    libemail-sender-transport-smtp-tls-perl \
+    libemail-valid-perl \
+    libencode-perl \
+    libexcel-writer-xlsx-perl \
+    libexpect-perl \
     libfile-counterfile-perl \
+    libfile-rsync-perl \
+    libfile-sharedir-perl \
     libfile-slurp-perl \
+    libfile-which-perl \
+    libfile-which-perl \
+    libfrontier-rpc-perl \
+    libgd-barcode-perl \
+    libgd-graph-perl \
     libgeo-coder-googlev3-perl \
     libgeo-googleearth-pluggable-perl \
+    libgeo-streetaddress-us-perl \
+    libgnupg-interface-perl \
     libhtml-defang-perl \
-    libhtml-tree-perl \
-    libhtml-table-perl \
-    libhtml-tableextract-perl \
-    libhtml-widgets-selectlayers-perl \
-    libio-stringy-perl \
-    libio-string-perl \
-    libipc-run-safehandles-perl \
-    liblingua-en-nameparse-perl \
-    liblingua-en-inflect-perl \
-    libnet-domain-tld-perl \
-    libnet-openssh-perl \
-    libnet-ssh-perl \
-    libnet-whois-raw-perl \
-    libstring-shellquote-perl \
-    libtie-ixhash-perl \
-    libtime-duration-perl \
-    libxml-libxml-lazybuilder-perl \
-    libnet-https-any-perl \
-    libapache-dbi-perl \
-    libcpanel-json-xs-perl \
-    libdata-password-perl \
-    libbusiness-onlinepayment-perl \
-    libxml-writer-perl \
-    libxml-libxml-simple-perl \
-    libgd-graph-perl \
-    libexpect-perl \
-    libsnmp-perl \
-    libfile-rsync-perl \
-    libemail-valid-perl \
-    libparse-fixedlength-perl \
-    libregexp-common-perl \
-    libnumber-phone-perl \
-    libtext-csv-perl
-
-# Not installing as packages under deb 8
-# librest-client-perl
-
-# Install more dependencies
-aptitude -y install \
-    libconvert-color-perl \
-    libdata-ical-perl \
-    libfile-which-perl \
-    libcrypt-x509-perl \
-    libtime-parsedate-perl \
-    libregexp-common-net-cidr-perl \
+    libhtml-element-extended-perl \
     libhtml-formattext-withlinks-andtables-perl \
-    libregexp-ipv6-perl \
-    libtext-quoted-perl \
-    libemail-address-list-perl \
-    libhtml-scrubber-perl \
-    libnet-cidr-perl \
-    liblocale-maketext-fuzzy-perl \
-    libdata-guid-perl \
-    libtext-wrapper-perl \
-    libxml-rss-perl \
-    libcss-squish-perl \
+    libhtml-formattext-withlinks-perl \
+    libhtml-mason-perl \
+    libhtml-mason-psgihandler-perl \
+    libhtml-parser-perl \
     libhtml-quoted-perl \
     libhtml-rewriteattributes-perl \
-    libmodule-versions-report-perl \
-    libfile-sharedir-perl \
-    librole-basic-perl \
-    libhtml-formattext-withlinks-perl \
-    libmodule-refresh-perl \
-    libcgi-emulate-psgi-perl \
-    liblocale-maketext-lexicon-perl \
-    libsymbol-global-name-perl \
-    libcgi-psgi-perl \
-    libapache-session-perl \
-    libtree-simple-perl \
-    libhtml-mason-psgihandler-perl \
-    libdbix-searchbuilder-perl \
-    libdate-extract-perl \
-    libplack-perl \
-    libtext-wikiformat-perl \
-    libtext-password-pronounceable-perl \
-    libcrypt-ssleay-perl \
-    libcrypt-ssleay-perl \
-    libfile-which-perl \
-    libperlio-eol-perl \
-    libgnupg-interface-perl \
-    libdbix-searchbuilder-perl \
-    libhtml-element-extended-perl \
-    libnet-mac-vendor-perl \
+    libhtml-scrubber-perl \
+    libhtml-table-perl \
+    libhtml-tableextract-perl \
+    libhtml-tagset-perl \
+    libhtml-tree-perl \
+    libhtml-widgets-selectlayers-perl \
+    libio-string-perl \
+    libio-stringy-perl \
+    libipc-run-perl \
+    libipc-run-safehandles-perl \
+    libipc-run3-perl \
+    libjson-perl \
+    liblingua-en-inflect-perl \
+    liblingua-en-nameparse-perl \
+    liblocale-codes-perl \
     liblocale-currency-format-perl \
-    libapache2-authcookie-perl \
+    liblocale-maketext-fuzzy-perl \
+    liblocale-maketext-lexicon-perl \
+    liblocale-subcountry-perl \
+    liblog-dispatch-perl \
+    libmailtools-perl \
+    libmime-tools-perl \
+    libmodule-refresh-perl \
+    libmodule-versions-report-perl \
+    libnet-cidr-perl \
+    libnet-domain-tld-perl \
+    libnet-https-any-perl \
+    libnet-mac-vendor-perl \
+    libnet-openssh-perl \
+    libnet-ping-external-perl \
+    libnet-ping-perl \
+    libnet-snmp-perl \
+    libnet-ssh-perl \
+    libnet-vitelity-perl \
+    libnet-whois-raw-perl \
+    libnetaddr-ip-perl \
+    libnumber-format-perl \
+    libnumber-phone-perl \
+    libparse-fixedlength-perl \
+    libperlio-eol-perl \
+    libplack-perl \
     libpoe-perl \
+    libregexp-common-net-cidr-perl \
+    libregexp-common-perl \
+    libregexp-ipv6-perl \
+    librest-client-perl \
+    librole-basic-perl \
+    libsnmp-perl \
+    libsoap-lite-perl \
+    libspreadsheet-writeexcel-perl \
+    libstring-approx-perl \
+    libstring-shellquote-perl \
+    libsymbol-global-name-perl \
     libsys-sigaction-perl \
+    libterm-readkey-perl \
+    libtest-pod-coverage-perl \
+    libtest-pod-perl \
+    libtext-csv-perl \
+    libtext-csv-xs-perl \
+    libtext-password-pronounceable-perl \
+    libtext-quoted-perl \
+    libtext-template-perl \
+    libtext-wikiformat-perl \
+    libtext-wrapper-perl \
+    libtie-ixhash-perl \
+    libtime-duration-perl \
+    libtime-parsedate-perl \
+    libtimedate-perl \
+    libtree-simple-perl \
+    liburi-perl \
+    libwww-perl \
+    libxml-libxml-lazybuilder-perl \
+    libxml-libxml-perl \
+    libxml-libxml-simple-perl \
+    libxml-rss-perl \
+    libxml-simple-perl \
+    libxml-writer-perl \
+    postgresql
 
 
-
-# Install Net::Vitelity from git
-mkdir -p /usr/local/src/Net-Vitelity
-cd /usr/local/src/Net-Vitelity
-git clone git://git.freeside.biz/Net-Vitelity.git
-cd Net-Vitelity
-perl Makefile.PL
-make
-make test
-make install
-
-
-# Install backported version of Locale::SubCountry
-cd /usr/local/src
-pwd
-wget http://backpan.cpantesters.org/authors/id/K/KI/KIMRYAN/Locale-SubCountry-1.66.tar.gz
-tar -xzf Locale-SubCountry-1.66.tar.gz
-cd Locale-SubCountry-1.66
-perl Makefile.PL
-make
-make test
-make install
-
-
-# Install REST::Client
-export PERL_MM_USE_DEFAULT=1
-export PERL_EXTUTILS_AUTOINSTALL="--defaultdeps"
-perl -MCPAN -e "install REST::Client"
-perl -MCPAN -e "install Geo::StreetAddress::US"
-
-
-# Debian Email::Address and is not up to date
-perl -MCPAN -e "install Email::Address"
-perl -MCPAN -e "install Email::Address::List"
-
-# Debian Encode package is not up to date
-perl -MCPAN -e "install Encode"
-
-
-# Requires Business::CreditCard 0.36
-perl -MCPAN -e "install Business::CreditCard"
-
-
-
-# Requires Email::Sender::Simple
-perl -MCPAN -e "install Email::Sender::Simple"
+# At the time of last install, some packages were required
+# from the testing repository for freeside 4
+# aptitude -y install libemail-sender-perl/testing
+#
+# Didn't work, don't see any way for freeside4 to run on deb8
+# installing Email::Sender from cpan :/

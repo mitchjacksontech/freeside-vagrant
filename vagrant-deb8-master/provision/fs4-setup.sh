@@ -19,7 +19,7 @@ export FS_INSTALL_DIR='/home/freeside'
 # Freside URL to be used in MakeFile FREESIDE_URL envvar
 # FREESIDE_URL initially contains http://localhost/freeside
 # This environment variable will replace the [localhost] only
-export FS_FREESIDE_DOMAIN='192.168.1.51'
+export FS_FREESIDE_DOMAIN='192.168.1.61'
 
 
 
@@ -110,10 +110,10 @@ sed -i "s/peer/trust/g" /etc/postgresql/9.4/main/pg_hba.conf
 systemctl restart postgresql
 make create-rt
 make install-rt
-rm -f /etc/postgresql/9.4/main/pg_hba.conf
-mv /etc/postgresql/9.4/main/pg_hba.conf.original /etc/postgresql/9.4/main/pg_hba.conf
-chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
-systemctl restart postgresql
+#rm -f /etc/postgresql/9.4/main/pg_hba.conf
+#mv /etc/postgresql/9.4/main/pg_hba.conf.original /etc/postgresql/9.4/main/pg_hba.conf
+#chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
+#systemctl restart postgresql
 
 
 # Enable and start apache2

@@ -20,17 +20,13 @@ export FS_INSTALL_DIR='/home/freeside'
 # Freside URL to be used in MakeFile FREESIDE_URL envvar
 # FREESIDE_URL initially contains http://localhost/freeside
 # This environment variable will replace the [localhost] only
-export FS_FREESIDE_DOMAIN='192.168.1.52'
+export FS_FREESIDE_DOMAIN='192.168.1.62'
 
 
 
 # First employee account credentials
 export FS_USERNAME='freeside'
 export FS_PASSWORD='freeside'
-
-
-# Apache and Postgresql
-aptitude -y install apache2 libapache2-mod-perl2 postgresql
 
 
 # Add freeside user
@@ -52,10 +48,9 @@ git checkout ${GIT_BRANCH}
 sudo -u postgres psql -c "Create USER ${PG_FREESIDE_USERNAME} WITH PASSWORD '${PG_FREESIDE_PASSWORD}';"
 sudo -u postgres psql -c "ALTER USER ${PG_FREESIDE_USERNAME} CREATEDB;"
 
-#
+
 # Set the database password in Makefile
-# sed -i "s/DB_PASSWORD=$/DB_PASSWORD=${PG_FREESIDE_PASSWORD}/g" Makefile
-#
+sed -i "s/DB_PASSWORD=$/DB_PASSWORD=${PG_FREESIDE_PASSWORD}/g" Makefile
 
 
 # Create the freeside database
@@ -117,15 +112,17 @@ sed -i "s/peer/trust/g" /etc/postgresql/9.4/main/pg_hba.conf
 systemctl restart postgresql
 make create-rt
 make install-rt
-rm -f /etc/postgresql/9.4/main/pg_hba.conf
-mv /etc/postgresql/9.4/main/pg_hba.conf.original /etc/postgresql/9.4/main/pg_hba.conf
-chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
-systemctl restart postgresql
+#rm -f /etc/postgresql/9.4/main/pg_hba.conf
+#mv /etc/postgresql/9.4/main/pg_hba.conf.original /etc/postgresql/9.4/main/pg_hba.conf
+#chown postgres:postgres /etc/postgresql/9.4/main/pg_hba.conf
+#systemctl restart postgresql
 
 
 # Enable and start apache2
 a2enconf freeside-base2
 a2enconf freeside-rt
+a2dismod mpm_event
+a2enmod mpm_prefork
 systemctl enable apache2
 systemctl enable postgresql
 systemctl restart apache2

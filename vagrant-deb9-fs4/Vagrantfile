@@ -1,18 +1,50 @@
-# Install Debian 9 with Freeside 4
+# Install Debian and Freeside
 
 Vagrant.configure('2') do |config|
-    config.vm.box = 'debian/contrib-jessie64'
+
+    config.vm.box = 'debian/stretch64'
     config.vm.hostname = 'vagrant-deb9-fs4.lab'
 
-    config.vm.network "public_network", ip: "192.168.1.53"
+    config.vm.network "public_network", ip: "192.168.1.63"
+
     config.vm.provider "virtualbox" do |v|
         v.memory = 4096
         v.cpus = 2
     end
 
+    config.vm.provider "vmware_desktop" do |v|
+      v.vmx["memsize"] = 4096
+      v.vmx["numvcpus"] = 2
+    end
+
+    config.vm.synced_folder "freeside/", "/usr/local/src/freeside",
+        create: "true",
+        owner: "root",
+        group: "root"
+
+    config.vm.synced_folder "freeside_tools/", "/usr/local/src/freeside_tools",
+        create: "true",
+        owner: "root",
+        group: "root"
+
+    config.vm.synced_folder "perlibs/", "/usr/local/share/perl",
+        create: "true",
+        owner: "root",
+        group: "root"
+
+    config.vm.synced_folder "htdocs/", "/var/www/html",
+        create: "true",
+        owner: "www-data",
+        group: "www-data"
+
+
+    # NOTE: These provisioners are not going to age well.  You may wish to
+    #       comment them out, and execute the included commands individually
+    #       watching watching for problems
     config.vm.provision :init, type: "shell", path: "provision/initial.sh"
-    config.vm.provision :fsprereqs, type: "shell", path: "provision/fs4-prereqs.sh"
-    config.vm.provision :fssetup, type: "shell", path: "provision/fs4-setup.sh"
-    config.vm.provision :fsselfserv, type: "shell", path: "provision/fs-selfservice.sh"
-    config.vm.provision :freeradius, type: "shell", path: "provision/freeradius.sh"
+    #config.vm.provision :fsprereqs, type: "shell", path: "provision/fs4-prereqs.sh"
+    #config.vm.provision :fssetup, type: "shell", path: "provision/fs4-setup.sh"
+    #config.vm.provision :fsselfserv, type: "shell", path: "provision/fs-selfservice.sh"
+    #config.vm.provision :freeradius, type: "shell", path: "provision/freeradius.sh"
+
 end

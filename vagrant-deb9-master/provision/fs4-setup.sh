@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Install Master Branch
-
+# Install Freeside
 
 # Git Branch to work with
 export GIT_URI='git://git.freeside.biz/freeside.git'
@@ -19,7 +18,7 @@ export FS_INSTALL_DIR='/home/freeside'
 # Freside URL to be used in MakeFile FREESIDE_URL envvar
 # FREESIDE_URL initially contains http://localhost/freeside
 # This environment variable will replace the [localhost] only
-export FS_FREESIDE_DOMAIN='192.168.1.55'
+export FS_FREESIDE_DOMAIN='192.168.1.65'
 
 
 
@@ -105,8 +104,8 @@ sed -i "s/localhost/${FS_FREESIDE_DOMAIN}/" Makefile
 
 # Install RT
 make configure-rt
-cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.4/main/pg_hba.conf.original
-sed -i "s/peer/trust/g" /etc/postgresql/9.4/main/pg_hba.conf
+cp /etc/postgresql/9.6/main/pg_hba.conf /etc/postgresql/9.6/main/pg_hba.conf.original
+sed -i "s/peer/trust/g" /etc/postgresql/9.6/main/pg_hba.conf
 systemctl restart postgresql
 make create-rt
 make install-rt
@@ -125,3 +124,13 @@ systemctl enable apache2
 systemctl enable postgresql
 systemctl restart apache2
 systemctl restart postgresql
+
+
+cat << EOF >> /root/fixapache.sh
+a2disconf freeside-base2.4
+systemctl restart apache2
+a2enconf freeside-base2.4
+systemctl reload apache2
+EOF
+chmod u+x /root/fixapache.sh
+/root/fixapache.sh

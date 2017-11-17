@@ -24,20 +24,36 @@ by line, watching for and correcting problems.  Contribution here are
 quite welcome.
 
 
-## Branches
+### Missing Requirements
 
-This project currently provides three branches to chose from:
+Both master branch and FREESIDE_4_BRANCH of freeside, as stands,
+cannot be installed under Debian 8 using only debian packages for
+perl libraries.
 
-* master: Based on Virtualbox.
-* vmware-support: Based on VMWare
-* case-sensitive: Based on Virtualbox.  Freeside source tree, and the apache
-  web directory, are mounted to the host file system.  This allows you to use
-  your native IDE tools on the host machine to directly edit source files
-  contained within the VM.  This **sill not work** if your host file system is
-  case insensitive, as the software source tree contains filename collisions.
-  With a MacOS host, you may create a case-sensitive partition on an external
-  drive to use this helpful functionality.
+* FREESIDE_4_BRANCH missing dependencies
+  * Email::Address Needs 1.908, has 1.905-2
+  * Encode Needs 2.64, has 2.63
 
+## Shared Folders and Case Sensitivity
+
+Each VM will export several key directories to the host.  This
+is great if you want to use an IDE on the host to edit code
+within the VM.  
+
+| host folder     | vm folder                    |
+| --------------- | ---------------------------- |
+| freeside:       | /usr/local/src/freeside      |
+| freeside_tools: | /usr/local/src/freeside_tools |
+| htdocs:         | /var/www/html                |
+| perlibs:        | /usr/local/share/perl        |
+
+The source tree for freeside contains filename collisions, if you
+are not operating under a case sensitive file system.  On MacOS,
+an external hard disk partitioned as case sensitive will suffice,
+even if the host OS partition is case insensitive.
+
+If the VM is not being operated on a case sensitive file system,
+you must disable all the shared folders in Vagrantfile.
 
 ## Requirements
 
@@ -54,6 +70,12 @@ sudo aptitude -y install virtualbox
 sudo aptitude -y install vagrant
 ```
 
+### Virtualbox or VMWare
+
+Support for both VirtualBox and VMWare are included in the
+Vagrantfiles.  When using virtualbox, guest additions may
+be installed automatically with the vagrant plugin vagrant-vgbuest.
+YMMV.
 
 ### Install Requirements on MacOS Host
 ``` bash
@@ -201,12 +223,12 @@ Each VM is bridged to the host with a static IP.
 
 | VM                  | IP           |
 | ------------------- | ------------ |
-| vagrant-deb9-master | 192.138.1.55 |
-| vagrant-deb9-fs4    | 192.138.1.53 |
-| vagrant-deb9-fs3    | 192.138.1.54 |
-| vagrant-deb8-master | 192.138.1.51 |
-| vagrant-dev8-fs4    | 192.138.1.50 |
-| vagrant-deb8-fs3    | 192.138.1.52 |
+| vagrant-deb9-master | 192.138.1.65 |
+| vagrant-deb9-fs4    | 192.138.1.63 |
+| vagrant-deb9-fs3    | 192.138.1.64 |
+| vagrant-deb8-master | 192.138.1.61 |
+| vagrant-dev8-fs4    | 192.138.1.60 |
+| vagrant-deb8-fs3    | 192.138.1.62 |
 
 
 This can be changed by updating the IP address
