@@ -13,7 +13,7 @@ export PG_FREESIDE_USERNAME='freeside'
 export PG_FREESIDE_PASSWORD='freeside'
 
 # Location to download source repository
-export FS_INSTALL_DIR='/home/freeside'
+export FS_INSTALL_DIR='/usr/local/src'
 
 
 # Freside URL to be used in MakeFile FREESIDE_URL envvar
