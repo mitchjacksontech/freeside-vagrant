@@ -1,11 +1,42 @@
-# Install Debian and Freeside
+#
+# Vagrantfile:
+#
+#   Create a vagrant instance with a fully configured freeside installation
+#
+
+ENV['VM_DEBIAN_VERSION'] = 'jessie'
+# ENV['VM_DEBIAN_VERSION'] = 'stretch'
+
+# ENV['FREESIDE_VERSION'] = "3"
+ENV['FREESIDE_VERSION'] = "3"
+
+ENV['FREESIDE_STATIC_IP'] = "192.168.1.62"
+ENV['FREESIDE_HOSTNAME']  = 'vagrant-deb8-fs3.lab'
+
+ENV['FS_VERSION'] = ENV['FREESIDE_VERSION']
+
+ENV['GIT_URI'] = "git://git.freeside.biz/freeside.git"
+ENV['GIT_BRANCH'] = 'FREESIDE_3_BRANCH'
+
+ENV['PG_FREESIDE_USERNAME'] = 'freeside'
+ENV['PG_FREESIDE_PASSWORD'] = 'freeside'
+
+ENV['FS_INSTALL_DIR'] = '/usr/local/src'
+ENV['FS_FREESIDE_DOMAIN'] = ENV['FREESIDE_STATIC_IP']
+
+ENV['FS_USERNAME'] = 'freeside'
+ENV['FS_PASSWORD'] = 'freeside'
 
 Vagrant.configure('2') do |config|
 
-    config.vm.box = 'debian/jessie64'
-    config.vm.hostname = 'vagrant-deb8-fs3.lab'
+    config.vm.box = 'debian/stretch64'
+    config.vm.hostname = ENV['FREESIDE_HOSTNAME']
 
-    config.vm.network "public_network", ip: "192.168.1.62"
+    # Static IP address
+    config.vm.network "public_network", ip: ENV['FREESIDE_STATIC_IP']
+
+    # DHCP
+    # config.vm.network "public_network"
 
     config.vm.provider "virtualbox" do |v|
         v.memory = 4096
@@ -22,7 +53,7 @@ Vagrant.configure('2') do |config|
         owner: "root",
         group: "root"
 
-    config.vm.synced_folder "freeside_tools/", "/usr/local/src/freeside_tools",
+    config.vm.synced_folder "../common_shared/", "/usr/local/src/common_shared",
         create: "true",
         owner: "root",
         group: "root"
@@ -40,10 +71,24 @@ Vagrant.configure('2') do |config|
 
     # NOTE: These provisioners are not going to age well.  You may wish to
     #       comment them out, and execute the included commands individually
-    #       watching watching for problems
-    config.vm.provision :init, type: "shell", path: "provision/initial.sh"
-    #config.vm.provision :fsprereqs, type: "shell", path: "provision/fs4-prereqs.sh"
-    #config.vm.provision :fssetup, type: "shell", path: "provision/fs4-setup.sh"
+    #       watching watching for problems.
+    config.vm.provision :init,
+      type: "shell",
+      path: "../provision/initial.sh",
+      env: ENV
+
+    config.vm.provision :fsprereqs,
+      type: "shell",
+      path: "../provision/freeside-prereqs.sh"
+      env: ENV
+
+    config.vm.provision :fssetup,
+      type: "shell",
+      path: '../provision/freeside-setup.sh'
+      env: ENV
+
+    # the following haven't been reviewed and are probably broken
+    #
     #config.vm.provision :fsselfserv, type: "shell", path: "provision/fs-selfservice.sh"
     #config.vm.provision :freeradius, type: "shell", path: "provision/freeradius.sh"
 

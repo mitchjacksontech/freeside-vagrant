@@ -188,8 +188,10 @@ id       name    provider   state    directory
 
 
 ### Customizing the freeside configuration
-At the top of the file **provision/fsX-setup.sh** is a set of customizable
-environment variables.
+At the top of the file **Vagrantfile** is a set of customizable
+environment variables.  These will be passed to each shell script
+to control the deployment.  When running these scripts by hand,
+you will have to set these environment variables
 ``` bash
 # Git Branch to work with
 export GIT_URI='git://git.freeside.biz/freeside.git'
